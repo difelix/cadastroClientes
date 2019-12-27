@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.cadastroClientes</groupId>
-	<artifactId>cadastroClientes</artifactId>
+	<artifactId>demo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>cadastroClientes</name>
 	<description>API de cadastro e busca de clientes</description>
