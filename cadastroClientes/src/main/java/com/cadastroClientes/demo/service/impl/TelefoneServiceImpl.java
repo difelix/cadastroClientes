@@ -42,7 +42,7 @@ public class TelefoneServiceImpl implements TelefoneService {
 	@Transactional(readOnly = true)
 	public List<Telefone> buscarTelefone(Telefone telefone) {
 		Example example = Example.of(telefone,
-				ExampleMatcher.matching().withIgnoreCase().withStringMatcher(StringMatcher.CONTAINING));
+				ExampleMatcher.matching().withIgnoreCase().withStringMatcher(StringMatcher.EXACT));
 		return repository.findAll(example);
 	}
 	

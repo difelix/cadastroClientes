@@ -50,7 +50,7 @@ public class ClienteServiceImpl implements ClienteService {
 	@Transactional(readOnly = true)
 	public List<Cliente> buscarCliente(Cliente cliente) {
 	    Example example = Example.of(cliente, 
-	    		ExampleMatcher.matching().withIgnoreCase().withStringMatcher(StringMatcher.CONTAINING));
+	    		ExampleMatcher.matching().withIgnoreCase().withStringMatcher(StringMatcher.EXACT));
 		return repository.findAll(example);
 	}
 	
