@@ -2,6 +2,7 @@ package com.cadastroClientes.demo.service.impl;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
@@ -44,6 +45,11 @@ public class TelefoneServiceImpl implements TelefoneService {
 		Example example = Example.of(telefone,
 				ExampleMatcher.matching().withIgnoreCase().withStringMatcher(StringMatcher.EXACT));
 		return repository.findAll(example);
+	}
+	
+	@Override
+	public Optional<Telefone> buscarTelefonePorId(Long id) {
+		return repository.findById(id);
 	}
 	
 	public void validarTelefone(Telefone telefone) {

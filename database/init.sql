@@ -9,6 +9,7 @@ CREATE SCHEMA clientes;
 
 GRANT USAGE ON SCHEMA clientes TO admincadastro;
 GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA clientes TO admincadastro;
+GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA clientes TO admincadastro;
 
 create table clientes.cliente (
     id bigserial PRIMARY KEY,
