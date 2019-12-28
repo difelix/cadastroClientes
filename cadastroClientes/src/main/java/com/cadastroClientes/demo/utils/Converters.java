@@ -4,7 +4,7 @@ public class Converters {
 	
 	public static boolean stringSomenteNumeros(String texto) {
 		try {
-			Integer.valueOf(texto);
+			Long.valueOf(texto);
 		} catch (NumberFormatException ex) {
 			return false;
 		}

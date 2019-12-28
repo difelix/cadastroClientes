@@ -2,6 +2,8 @@ package com.cadastroClientes.demo.service.impl;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
@@ -62,6 +64,11 @@ public class ClienteServiceImpl implements ClienteService {
 	@Override
 	public boolean verificarCpf(String cpf) {
 		return repository.existsByCpf(cpf);
+	}
+	
+	@Override
+	public Optional<Cliente> buscarClientePorId(Long id) {
+		return repository.findById(id);
 	}
 	
 	public void validarCliente(Cliente cliente) {
