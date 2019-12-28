@@ -1,10 +1,12 @@
-package com.cadastroClientes.model.entity;
+package com.cadastroClientes.demo.model.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -13,24 +15,22 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "cliente", schema = "clientes")
+@Table(name = "telefone", schema = "clientes")
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
-public class Cliente {
-
+public class Telefone {
+	
 	@Id
-	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
 	private Long id;
 	
-	@Column(name = "nome")
-	private String nome;
+	@Column(name = "numero")
+	private String numero;
 	
-	@Column(name = "email")
-	private String email;
-	
-	@Column(name = "cpf")
-	private String cpf;
+	@ManyToOne
+	@JoinColumn(name = "id_cliente")
+	private Cliente cliente;
 }

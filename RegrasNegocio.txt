@@ -1,0 +1,19 @@
+API externa: viacep.com.br
+
+Serviços entregues:
+- busca de cadastro por email
+- inclusão de cadastro
+- alteração de cadastro
+- serviço que verifica se email ja existe na base
+
+Regra de negócios:
+- cliente pode ter mais de um endereço, e mais de um telefone, email é um dado único
+- cliente deve ser único na base (email e cpf)
+- para salvar endereço, a api tem que buscar o endereço completo via cep
+- ao finalizar o cadastro na plataforma, o cliente deve receber uma notificação no email de cadastro
+
+Testes unitários
+
+Branch development
+
+API first padrão/ documentação swagger
