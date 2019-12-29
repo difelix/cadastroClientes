@@ -57,9 +57,9 @@ public class EnderecoRepositoryTest {
 	
 	public Cliente criarCliente() {
 		return Cliente.builder()
-				.nome("Diego")
-				.cpf("00000000000")
-				.email("diego@email.com")
+				.nome("Teste")
+				.cpf("11111111111")
+				.email("teste@email.com")
 				.build();
 	}
 	

@@ -12,12 +12,8 @@ import lombok.NoArgsConstructor;
 public class EnderecoDto {
 
 	private Long id;
-	private String rua;
 	private String cep;
-	private String bairro;
-	private String cidade;
-	private String estado;
+	private Long idCliente;
 	private String complemento;
 	private String referencia;
-	private Long idCliente;
 }

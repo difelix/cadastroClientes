@@ -180,6 +180,62 @@ paths:
       responses:
         '201':
           description: Busca concluída
-      
+        '400':
+          description: Id do cliente informado não foi encontrado na base de dados
+  /api/enderecos:
+    post:
+      summary: Cadastra um endereço na base de dados
+      parameters:
+        - in: body
+          name: dto
+          required: true
+          schema:
+            $ref: '#/definitions/Endereco'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: o cep foi encontrado e o endereço foi salvo
+        '400':
+          description: o cadastro não foi finalizado
+  /api/enderecos/{id}:
+    put:
+      summary: Atualiza um endereço cadastrado na base de dados
+      parameters:
+        - in: path
+          name: id
+          type: number
+          format: long
+          description: Id do endereço a ser atualizado
+          required: true
+        - in: body
+          name: dto
+          required: true
+          schema:
+            $ref: '#/definitions/Endereco'
+      produces:
+        - application/json
+      responses:
+        '201':
+          description: Endereço foi atualizado com sucesso
+        '400':
+          description: Houve uma falha na atualização de endereço
+  /api/enderecos/filtrar:
+    get:
+      summary: Busca endereços pelo id do cliente
+      parameters:
+        - in: query
+          name: idCliente
+          type: number
+          format: long
+          required: true
+          description: id do cliente que deseja buscar endereco
+      produces:
+        - application/json
+      responses:
+        '201':
+          description: Busca foi concluída
+        '400':
+          description: Id do cliente informado na busca não foi encontrado
             
     

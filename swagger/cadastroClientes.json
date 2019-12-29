@@ -1,0 +1,371 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Cadastro de Clientes",
+    "description": "Operações de cadastro e busca de clientes",
+    "version": "1.0.0"
+  },
+  "host": "localhost:8080",
+  "schemes": [
+    "http"
+  ],
+  "definitions": {
+    "Cliente": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number",
+          "format": "long"
+        },
+        "nome": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "cpf": {
+          "type": "string"
+        }
+      }
+    },
+    "Endereco": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number",
+          "format": "long"
+        },
+        "rua": {
+          "type": "string"
+        },
+        "cep": {
+          "type": "string"
+        },
+        "bairro": {
+          "type": "string"
+        },
+        "cidade": {
+          "type": "string"
+        },
+        "estado": {
+          "type": "string"
+        },
+        "complemento": {
+          "type": "string"
+        },
+        "referencia": {
+          "type": "string"
+        },
+        "cliente": {
+          "type": "object"
+        }
+      }
+    },
+    "Telefone": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number",
+          "format": "long"
+        },
+        "numero": {
+          "type": "string"
+        },
+        "cliente": {
+          "type": "object"
+        }
+      }
+    }
+  },
+  "paths": {
+    "/api/clientes": {
+      "post": {
+        "summary": "Realiza cadastro de um cliente na base",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "dto",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Cliente"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "201": {
+            "description": "Cadastro realizado com sucesso"
+          },
+          "400": {
+            "description": "Falha na realização do cadastro"
+          }
+        }
+      }
+    },
+    "/api/clientes/{id}": {
+      "put": {
+        "summary": "Atualiza cadastro de um cliente existente na base",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "id do cliente",
+            "type": "number",
+            "format": "long",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "dto",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Cliente"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Atualização do cadastro efetivado com sucesso"
+          },
+          "400": {
+            "description": "Falha na atualização do cadastro"
+          }
+        }
+      }
+    },
+    "/api/clientes/checkemail": {
+      "get": {
+        "summary": "Verifica se email informado existe na base de dados",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "email",
+            "type": "string",
+            "required": true,
+            "description": "Email que se deseja verificar a existência na base de dados"
+          }
+        ],
+        "responses": {
+          "302": {
+            "description": "Email encontrado"
+          },
+          "404": {
+            "description": "Email não encontrado"
+          }
+        }
+      }
+    },
+    "/api/clientes/searchemail": {
+      "get": {
+        "summary": "Busca um cadastro de cliente pelo email",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "email",
+            "type": "string",
+            "required": true,
+            "description": "Email para buscar cliente"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A busca de cliente foi concluída"
+          }
+        }
+      }
+    },
+    "/api/telefones": {
+      "post": {
+        "summary": "Salva as informações de telefone do cliente",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "dto",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Telefone"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "201": {
+            "description": "Telefone salvo com sucesso"
+          },
+          "400": {
+            "description": "Erro ao tentar salvar telefone"
+          }
+        }
+      }
+    },
+    "/api/telefones/{id}": {
+      "put": {
+        "summary": "Atualiza as informações de telefone de um cliente",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "Id do telefone a ser atualizado",
+            "type": "number",
+            "format": "long",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "dto",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Telefone"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "201": {
+            "description": "Telefone foi atualizado com sucesso"
+          },
+          "400": {
+            "description": "Houve uma falha ao atualizar telefone"
+          }
+        }
+      }
+    },
+    "/api/telefones/search": {
+      "get": {
+        "summary": "Busca na base de dados telefone pelo número",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "numero",
+            "type": "string",
+            "required": true,
+            "description": "Número do telefone que se deseja buscar na base"
+          },
+          {
+            "in": "query",
+            "name": "idCliente",
+            "type": "number",
+            "format": "long",
+            "required": true,
+            "description": "Id do cliente ao qual telefone está vinculado"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "201": {
+            "description": "Busca concluída"
+          },
+          "400": {
+            "description": "Id do cliente informado não foi encontrado na base de dados"
+          }
+        }
+      }
+    },
+    "/api/enderecos": {
+      "post": {
+        "summary": "Cadastra um endereço na base de dados",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "dto",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Endereco"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "o cep foi encontrado e o endereço foi salvo"
+          },
+          "400": {
+            "description": "o cadastro não foi finalizado"
+          }
+        }
+      }
+    },
+    "/api/enderecos/{id}": {
+      "put": {
+        "summary": "Atualiza um endereço cadastrado na base de dados",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "number",
+            "format": "long",
+            "description": "Id do endereço a ser atualizado",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "dto",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Endereco"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "201": {
+            "description": "Endereço foi atualizado com sucesso"
+          },
+          "400": {
+            "description": "Houve uma falha na atualização de endereço"
+          }
+        }
+      }
+    },
+    "/api/enderecos/filtrar": {
+      "get": {
+        "summary": "Busca endereços pelo id do cliente",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "idCliente",
+            "type": "number",
+            "format": "long",
+            "required": true,
+            "description": "id do cliente que deseja buscar endereco"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "201": {
+            "description": "Busca foi concluída"
+          },
+          "400": {
+            "description": "Id do cliente informado na busca não foi encontrado"
+          }
+        }
+      }
+    }
+  }
+}

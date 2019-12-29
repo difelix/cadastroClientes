@@ -1,5 +1,7 @@
 package com.cadastroClientes.demo.model.repository;
 
+import java.util.Optional;
+
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,17 +30,9 @@ public class TelefoneRepositoryTest {
 	
 	@Test
 	public void salvarTelefoneComSucesso() {
-		Cliente cliente = Cliente.builder()
-				.cpf("00000000000")
-				.email("diego@email.com")
-				.nome("Diego")
-				.build();
-		cliente = entityManager.persist(cliente);
-		
-		Telefone telefone = Telefone.builder()
-				.numero("19111112222")
-				.cliente(cliente)
-				.build();
+		Cliente cliente = criarCliente();
+		cliente = entityManager.persist(cliente);		
+		Telefone telefone = criarTelefone(cliente);
 		
 		Telefone telefoneSalvo = repository.save(telefone);
 		
@@ -47,23 +41,50 @@ public class TelefoneRepositoryTest {
 	
 	@Test
 	public void atualizarTelefoneComSucesso() {
-		Cliente cliente = Cliente.builder()
-				.cpf("00000000000")
-				.email("diego@email.com")
-				.nome("Diego")
-				.build();
-		cliente = entityManager.persist(cliente);
+		Cliente cliente = criarCliente();
+		cliente = entityManager.persist(cliente);	
+		Telefone telefone = criarTelefone(cliente);
 		
-		Telefone telefone = Telefone.builder()
+		telefone = entityManager.persist(telefone);
+		telefone.setNumero("21111112222");
+		
+		Telefone telefoneAtualizado = repository.save(telefone);
+		
+		Assertions.assertThat(telefoneAtualizado.getNumero()).isEqualTo(telefone.getNumero());	
+	}
+	
+	@Test
+	public void buscarTelefoneComIdExistente() {
+		Cliente cliente = criarCliente();
+		cliente = entityManager.persist(cliente);
+		Telefone telefone = criarTelefone(cliente);
+		telefone = entityManager.persist(telefone);
+		
+		Optional<Telefone> resultadoBusca = repository.findById(telefone.getId());
+		
+		Assertions.assertThat(resultadoBusca.isPresent()).isTrue();
+	}
+	
+	@Test
+	public void buscarTelefoneComIdInexistente() {
+		Optional<Telefone> resultadoBusca = repository.findById(10000L);
+		
+		Assertions.assertThat(resultadoBusca.isPresent()).isFalse();
+	}
+	
+	private Cliente criarCliente() {
+		return Cliente.builder()
+				.cpf("11111111111")
+				.email("teste@email.com")
+				.nome("Teste")
+				.build();
+	}
+	
+	private Telefone criarTelefone(Cliente cliente) {
+		return Telefone.builder()
 				.numero("19111112222")
 				.cliente(cliente)
 				.build();
-		Telefone telefoneSalvoEM = entityManager.persist(telefone);
-		telefoneSalvoEM.setNumero("21111112222");
-		
-		Telefone telefoneAtualizado = repository.save(telefoneSalvoEM);
-		
-		Assertions.assertThat(telefoneAtualizado.getNumero()).isEqualTo(telefoneSalvoEM.getNumero());	
 	}
 
 }

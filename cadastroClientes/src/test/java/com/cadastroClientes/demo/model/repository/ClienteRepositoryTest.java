@@ -43,12 +43,12 @@ public class ClienteRepositoryTest {
 		Cliente cliente = montarObjeto();
 		
 		Cliente clienteSalvoEntityManager = entityManager.persist(cliente);
-		clienteSalvoEntityManager.setNome("Diego");
+		clienteSalvoEntityManager.setNome("Novo Teste");
 		
 		Cliente clienteAtualizado = repository.save(clienteSalvoEntityManager);
 		
 		Assertions.assertThat(clienteAtualizado.getId()).isNotNull();
-		Assertions.assertThat(clienteAtualizado.getEmail()).isEqualTo(clienteSalvoEntityManager.getEmail());
+		Assertions.assertThat(clienteAtualizado.getNome()).isEqualTo(clienteSalvoEntityManager.getNome());
 	}
 	
 	@Test
@@ -64,7 +64,7 @@ public class ClienteRepositoryTest {
 	
 	@Test
 	public void verificarExistenciaEmailNaoCadastrado() {
-		boolean exists = repository.existsByEmail("diego.felix@email.com");
+		boolean exists = repository.existsByEmail("teste.teste@email.com");
 		
 		Assertions.assertThat(exists).isFalse();
 	}
@@ -82,16 +82,16 @@ public class ClienteRepositoryTest {
 	
 	@Test
 	public void verificarExistenciaDeCpfNaoCadastrado() {
-		boolean exists = repository.existsByCpf("00000000000");
+		boolean exists = repository.existsByCpf("00000000001");
 		
 		Assertions.assertThat(exists).isFalse();
 	}
 	
 	public Cliente montarObjeto() {
 		return Cliente.builder()
-				.nome("Diego Félix")
-				.cpf("00000000000")
-				.email("diego.felix@email.com")
+				.nome("Teste")
+				.cpf("11111111111")
+				.email("teste@email.com")
 				.build();
 	}
 
