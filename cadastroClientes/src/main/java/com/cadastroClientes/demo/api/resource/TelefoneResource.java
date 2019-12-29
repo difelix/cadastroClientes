@@ -56,7 +56,7 @@ public class TelefoneResource {
 		}).orElseGet(() -> new ResponseEntity("Telefone informado não foi encontrado", HttpStatus.BAD_REQUEST));
 	}
 	
-	@GetMapping
+	@GetMapping("/search")
 	public ResponseEntity buscarTelefone(@RequestParam String numero,
 			@RequestParam Long idCliente) {
 		Telefone telefoneFilter = new Telefone();
