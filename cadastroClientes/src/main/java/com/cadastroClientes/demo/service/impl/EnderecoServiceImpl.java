@@ -14,7 +14,6 @@ import com.cadastroClientes.demo.model.entity.Endereco;
 import com.cadastroClientes.demo.model.repository.EnderecoRepository;
 import com.cadastroClientes.demo.service.EnderecoService;
 import com.cadastroClientes.demo.service.exception.RegraNegocioException;
-import com.cadastroClientes.demo.utils.Converters;
 
 @Service
 public class EnderecoServiceImpl implements EnderecoService {
@@ -75,7 +74,7 @@ public class EnderecoServiceImpl implements EnderecoService {
 			throw new RegraNegocioException("Campo CEP deve conter obrigatoriamente 8 dígitos numéricos");
 		}
 		
-		if (!Converters.stringSomenteNumeros(cep)) {
+		if (!cep.matches("[0-9]+")) {
 			throw new RegraNegocioException("Campo CEP deve conter obrigatoriamente dígitos numéricos");
 		}		
 	}

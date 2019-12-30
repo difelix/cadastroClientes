@@ -15,7 +15,6 @@ import com.cadastroClientes.demo.model.entity.Telefone;
 import com.cadastroClientes.demo.model.repository.TelefoneRepository;
 import com.cadastroClientes.demo.service.TelefoneService;
 import com.cadastroClientes.demo.service.exception.RegraNegocioException;
-import com.cadastroClientes.demo.utils.Converters;
 
 @Service
 public class TelefoneServiceImpl implements TelefoneService {
@@ -66,7 +65,7 @@ public class TelefoneServiceImpl implements TelefoneService {
 			throw new RegraNegocioException("É necessário fornecer um número de telefone com 11 dígitos");
 		}
 		
-		if (!Converters.stringSomenteNumeros(telefone.getNumero())) {
+		if (!telefone.getNumero().matches("[0-9]+")) {
 			throw new RegraNegocioException("Só é permitido números no Campo Número");
 		}
 	}

@@ -57,8 +57,8 @@ public class TelefoneResource {
 	}
 	
 	@GetMapping("/search")
-	public ResponseEntity buscarTelefone(@RequestParam String numero,
-			@RequestParam Long idCliente) {
+	public ResponseEntity buscarTelefone(@RequestParam(required = false) String numero,
+			@RequestParam(required = true) Long idCliente) {
 		Telefone telefoneFilter = new Telefone();
 		telefoneFilter.setNumero(numero);
 		

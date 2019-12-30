@@ -15,7 +15,6 @@ import com.cadastroClientes.demo.model.entity.Cliente;
 import com.cadastroClientes.demo.model.repository.ClienteRepository;
 import com.cadastroClientes.demo.service.ClienteService;
 import com.cadastroClientes.demo.service.exception.RegraNegocioException;
-import com.cadastroClientes.demo.utils.Converters;
 
 @Service
 public class ClienteServiceImpl implements ClienteService {
@@ -35,8 +34,8 @@ public class ClienteServiceImpl implements ClienteService {
 		if (verificarCpf(cliente.getCpf())) {
 			throw new RegraNegocioException("CPF informado já foi cadastrado no sistema!");
 		}
-		
-		return repository.save(cliente);
+			
+		return cliente = repository.save(cliente);
 	}
 
 	@Override
@@ -89,7 +88,7 @@ public class ClienteServiceImpl implements ClienteService {
 			throw new RegraNegocioException("Campo CPF precisa ter obrigatoriamente 11 números");
 		}	
 		
-	    if (!Converters.stringSomenteNumeros(cliente.getCpf())) {
+	    if (!cliente.getCpf().matches("[0-9]+")) {
 	    	throw new RegraNegocioException("Campo CPF é composto somente por números");
 	    }
 	}

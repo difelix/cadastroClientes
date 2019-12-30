@@ -94,32 +94,18 @@ public class EnderecoServiceTest {
 	}
 	
 	@Test
-	public void validarEnderecoComCampoCepVazio() {
-		Endereco endereco = criarEndereco();
-		endereco.setCliente(criarCliente());
-		endereco.setCep(null);
-		
-		Throwable exception = Assertions.catchThrowable(() -> serviceImpl.cadastrarEndereco(endereco));
-		Assertions.assertThat(exception).isInstanceOf(RegraNegocioException.class).hasMessage("Campo CEP não pode ser vazio");
-	}
-	
-	@Test
 	public void validarEnderecoComCampoCepInvalido() {
-		Endereco endereco = criarEndereco();
-		endereco.setCliente(criarCliente());
-		endereco.setCep("0000000000");
+		String cep = "0000000000";
 		
-		Throwable exception = Assertions.catchThrowable(() -> serviceImpl.cadastrarEndereco(endereco));
+		Throwable exception = Assertions.catchThrowable(() -> serviceImpl.validarCep(cep));
 		Assertions.assertThat(exception).isInstanceOf(RegraNegocioException.class).hasMessage("Campo CEP deve conter obrigatoriamente 8 dígitos numéricos");
 	}
 	
 	@Test
 	public void validarEnderecoCampoCepComCaracteresInvalidos() {
-		Endereco endereco = criarEndereco();
-		endereco.setCliente(criarCliente());
-		endereco.setCep("0s0d0f0h");
+		String cep = "0s0d0f0h";
 		
-		Throwable exception = Assertions.catchThrowable(() -> serviceImpl.cadastrarEndereco(endereco));
+		Throwable exception = Assertions.catchThrowable(() -> serviceImpl.validarCep(cep));
 		Assertions.assertThat(exception).isInstanceOf(RegraNegocioException.class).hasMessage("Campo CEP deve conter obrigatoriamente dígitos numéricos");
 	}
 	
